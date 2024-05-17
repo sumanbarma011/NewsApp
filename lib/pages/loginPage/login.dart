@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newsapp/core/app_logo.dart';
 // import 'package:newsapp/pages/homePage/home_page.dart';
 
@@ -7,12 +8,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final height = MediaQuery.of(context).size.height;
-    // final width = MediaQuery.of(context).size.width;
+   
 
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding:  EdgeInsets.symmetric(horizontal: 20.w),
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              const AppLogo(logoFontSize: 44),
+               AppLogo(logoFontSize: 44.sp),
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
@@ -35,8 +35,8 @@ class LoginPage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  minimumSize: const Size(700, 50),
+                      borderRadius: BorderRadius.circular(30.r)),
+                  minimumSize: Size(700.w, 50.h),
                   // maximumSize: const Size(700, 50),
                   backgroundColor: const Color.fromARGB(251, 223, 224, 227),
                 ),

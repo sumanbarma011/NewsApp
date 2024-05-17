@@ -7,7 +7,7 @@ class NewsModel {
       {required this.author,
       required this.newsTitle,
       required this.publishedDate,
-      required this.category,
+       this.category,
       required this.newsHighlight,
       required this.otherNews,
       required this.newsImage,
@@ -15,7 +15,7 @@ class NewsModel {
   final String author;
   final String newsTitle;
   final DateTime publishedDate;
-  final Category category;
+  final Category? category;
   final String newsHighlight;
   final String otherNews;
   final String newsImage;
@@ -25,7 +25,7 @@ class NewsModel {
   }
 
   String get getCategoryName {
-    return ("${category.name[0].toUpperCase()}${category.name.substring(1).toLowerCase()}");
+    return ("${category?.name[0].toUpperCase()}${category?.name.substring(1).toLowerCase()}");
   }
 }
 

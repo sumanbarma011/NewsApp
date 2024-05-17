@@ -8,7 +8,7 @@ List<NewsModel> newsData = [
       newsTitle:
           'Collapse of a mountain pic in Austria amid thawing permafrost trigger a huge rockfall',
       publishedDate: DateTime.now(),
-      category: Category.environment,
+      category: null,
       newsHighlight:
           'English Wikipedia is hosted alongside other language editions by the Wikimedia Foundation, an American nonprofit organization. Its content is written independently of other editions[1] in various varieties of English, aiming to stay consistent within articles. Its internal newspaper is The Signpost.',
       otherNews:

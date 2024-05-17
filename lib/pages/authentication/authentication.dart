@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/text_widget.dart';
+// import 'package:newsapp/pages/homePage/home_page.dart';
 
 class Authentication extends StatefulWidget {
   const Authentication({
     super.key,
   });
-  // final bool? isLogIn;
+  String? onValidate(value) {
+    if (value!.isEmpty) {
+      return 'Something went wrong';
+    } else {
+      return null;
+    }
+  }
 
   @override
   State<Authentication> createState() => _AuthenticationState();
@@ -13,6 +20,11 @@ class Authentication extends StatefulWidget {
 
 class _AuthenticationState extends State<Authentication> {
   bool check = false;
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool obsecure = false;
+
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     bool isLogInStatus = ModalRoute.of(context)!.settings.arguments as bool;
@@ -98,29 +110,49 @@ class _AuthenticationState extends State<Authentication> {
                 height: 20,
               ),
               SizedBox(
-                // margin: const EdgeInsets.symmetric(horizontal: 60),
-                // height: 200,
-                // color: Colors.green,
                 child: Form(
+                  key: formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (isLogInStatus == false)
                         Column(
                           children: const [
-                            TextForm(hintText: 'Enter Your Name', text: 'Name'),
+                            TextForm(
+                              hintText: 'Enter Your Name',
+                              text: 'Name',
+                            ),
                             SizedBox(
                               height: 10,
                             )
                           ],
                         ),
-                      const TextForm(
-                          hintText: 'Enter Your Gmail', text: 'Email'),
+                      TextForm(
+                        hintText: 'Enter Your Gmail',
+                        text: 'Email',
+                        validate: widget.onValidate,
+                        textEditingController: nameController,
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
-                      const TextForm(
-                          hintText: 'Enter Your Password ', text: 'Password'),
+                      TextForm(
+                        hintText: 'Enter Your Password ',
+                        text: 'Password',
+                        suffix: InkWell(
+                          onTap: () {
+                            setState(() {
+                              obsecure = !obsecure;
+                            });
+                          },
+                          child: obsecure == false
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                        ),
+                        obscureText: obsecure,
+                        validate: widget.onValidate,
+                        textEditingController: passwordController,
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -167,7 +199,64 @@ class _AuthenticationState extends State<Authentication> {
               ),
               MaterialButton(
                 color: Colors.red,
-                onPressed: isLogInStatus == true ? () {} : () {},
+                onPressed: isLogInStatus == true
+                    ? () {
+//-----------------------    using form key validation      -----------------------------------------//
+                        if (!(formkey.currentState!.validate() &&
+                            check == true)) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Something went wrong'),
+                                  content: const Text('Something went wrong'),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Okay'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/homePage', (route) => false);
+                        }}
+
+//---------------------   with using controller       ----------------------------------//
+                    //     if (nameController.text.isEmpty &&
+                    //         passwordController.text.isEmpty &&
+                    //         check == false) {
+                    //       showDialog(
+                    //         context: context,
+                    //         builder: (context) {
+                    //           return AlertDialog(
+                    //             title: const Text('Invalid Input'),
+                    //             content: const Text('Something went wrong'),
+                    //             actions: [
+                    //               ElevatedButton(
+                    //                 style: ButtonStyle(
+                    //                   backgroundColor:
+                    //                       MaterialStateProperty.all(Colors.red),
+                    //                 ),
+                    //                 onPressed: () {
+                    //                   Navigator.of(context).pop();
+                    //                 },
+                    //                 child: const Text('Okay'),
+                    //               ),
+                    //             ],
+                    //           );
+                    //         },
+                    //       );
+                    //     } else {
+                    //       Navigator.pushNamedAndRemoveUntil(
+                    //           context, '/homePage', (route) => false);
+                    //     }
+                    //   }
+                    : () {},
                 child: isLogInStatus == true
                     ? const Text(
                         'Sign In',

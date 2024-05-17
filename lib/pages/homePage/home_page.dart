@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/app_logo.dart';
-import 'package:newsapp/pages/discover/discover_page.dart';
-import 'package:newsapp/pages/discover/profile.dart';
-import 'package:newsapp/pages/discover/saved.dart';
+import 'package:newsapp/pages/profilePage/discover_page.dart';
+import 'package:newsapp/pages/profilePage/profile.dart';
+import 'package:newsapp/pages/profilePage/saved.dart';
 import 'package:newsapp/pages/homePage/widget/home_main_widget.dart';
 
 class HomePage extends StatefulWidget {
